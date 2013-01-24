@@ -1,0 +1,69 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "org.apache.hadoop.hbase.index.common.protobuf";
+option java_outer_classname = "IndexOptionProtos";
+option java_generic_services = true;
+option java_generate_equals_and_hash = true;
+option optimize_for = SPEED;
+
+
+message TableIndexOptions{
+	repeated IndexDefinition index_option = 1;
+}
+
+message IndexOption {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message IndexDefinition {
+
+	enum Type {
+		QUALIFIED_VALUE = 0;
+		QUALIFIER_NAME = 1 ;
+		// QUALIFIER_STARTS_WITH = 2;
+		// PARTIAL_ROW_KEY = 3;
+	}
+
+	enum Mode {
+		UNIQUE_INDEX = 0;
+		SPARSE_INDEX = 1;
+		DENSE_INDEX_ROW = 2;
+		// DENSE_INDEX_BLOCK = 3;
+	}
+
+//	enum DataApproach {
+//		HASH_32 = 0;
+//		HASH_128 = 0;
+//		BYTE_ORDERED = 1;
+//		UTF8_ORDERED = 2;
+//	}
+
+	optional Type type = 1;
+	optional Mode mode = 2;
+	optional string data_interpretation = 3;
+	optional bytes column_family = 4;
+	optional bytes qualifer = 5;
+
+	repeated IndexOption option = 6;
+
+
+}
+
+
